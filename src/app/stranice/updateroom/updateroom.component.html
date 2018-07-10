@@ -1,0 +1,62 @@
+<div class="container-fluid naslov">
+    Hotel Euforia
+  </div>
+  
+  
+  <app-navbar2></app-navbar2>
+  
+
+
+    <div class="container-fluid podnaslov">
+
+     <p> Izmeni sobu </p>
+
+    </div>
+
+    <div class="container-fluid col-md-8 offset-md-2 mt-3">
+
+      <form role="form" [formGroup]="updateroomForm">
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" class="form-control" formControlName='id'>
+       </div>
+       <div class="form-group">
+          <label for="broj">Broj:</label>
+          <input type="number" class="form-control" formControlName='broj'>
+        </div>
+         <div class="form-group">
+          <label for="naziv">Naziv:</label>
+          <input type="text" class="form-control"  formControlName='naziv'>
+        </div>
+        <div class="form-group">
+          <label for="tv">TV:</label>
+          <select class="form-control" ng-selected="Da" formControlName='tv'>
+           <option value="1" >Da</option>
+           <option value="0" >Ne</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="kvadrati">Kvadrati:</label>
+          <input type="number" class="form-control" formControlName='kvadrati'>
+        </div>
+        <div class="form-group">
+         <label for="kreveti">Kreveti:</label>
+         <input type="number" class="form-control" formControlName='kreveti'>
+       </div>
+       <div class="form-group">
+         <label for="room_type">Tip sobe:</label>
+         <select formControlName='room_type' class="form-control"  >
+          <option value="" selected  disabled>Select room type</option>
+          <option *ngFor="let room_type of room_types" [value]="room_type.id">{{room_type.tip}}</option>
+         </select>
+       </div>
+        <button (click)="updateRoom()" class="btn btn-default">Update</button>
+      </form>
+     
+     </div>
+     
+
+     <div class="container-fluid footer mt-3">
+        <p>&copy; Copyright 2018&reg;</p>
+        </div>
+     

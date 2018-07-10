@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light  navigation">
+    <a  class="nav-link poc" routerLinkActive=" active ac poc"  routerLink='../pocetna'>Početna</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+      
+    <ul class="navbar-nav">
+       <li class="nav-item link">
+        <a class="nav-link"  routerLink="../sobe" routerLinkActive=" active ac ">Sobe </a>
+      </li>
+      <li class="nav-item link" *ngIf="isLogin">
+        <a class="nav-link"  routerLink="../pretraga" routerLinkActive=" active ac">Pretraga soba</a>
+      </li>
+      <li class="nav-item link" *ngIf="isLogin && isAdmin">
+          <a class="nav-link"  routerLink="../allroomtypes" routerLinkActive=" active ac">Tipovi soba</a>
+      </li>
+      <li class="nav-item link">
+        <a class="nav-link"  routerLink="../kontakt" routerLinkActive=" active ac">Kontakt</a>
+      </li>
+      <li class="nav-item link" *ngIf="isLogin && isAdmin">
+        <a class="nav-link"  routerLink="../dodavanjeSobe" routerLinkActive=" active ac">Dodavanje sobe</a>
+      </li>
+      <li class="nav-item link" *ngIf="isLogin && isAdmin">
+        <a class="nav-link" routerLink="../korisnici" routerLinkActive=" ">Korisnici</a>  
+      </li>
+      <li class="nav-item link" *ngIf="isLogin">
+        <a class="nav-link" routerLink="../reservationslist" routerLinkActive=" ">Lista rezervacija</a>  
+      </li>
+      <li class="nav-item link" *ngIf="isLogin && isAdmin">
+        <a class="nav-link"  routerLink="../registracija" routerLinkActive=" active ac">Registracija</a>
+      </li>
+      <li class="nav-item link" *ngIf="!isLogin">
+        <a class="nav-link"  routerLink="../registracija2" routerLinkActive=" active ac">Registracija</a>
+      </li>
+      <li class="nav-item link" *ngIf="!isLogin">
+        <a class="nav-link"  routerLink="../login" routerLinkActive=" active ac">Login</a>
+      </li>
+     <!-- <li class="nav-item link" *ngIf="isLogin">
+        <a class="nav-link" routerLink="../pocetna" (click)="logOut()" routerLinkActive=" ">Logout</a>  
+      </li>-->
+      
+    </ul>
+
+    <div class="btn-group" *ngIf="isLogin && ime" >
+      <button type="button" class="btn navbutton1" >Dobrodosao {{ime.username}}</button>
+      <button type="button" class="btn dropdown-toggle dropdown-toggle-split navbutton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item poc"  routerLink="../changepassword">Promeni sifru</a>
+        <a class="dropdown-item poc" routerLink="../pocetna" (click)="logOut()" routerLinkActive=" ">Logout</a>  
+      </div>
+    </div>
+  
+  </div>
+  
+</nav> 
+
+

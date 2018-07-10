@@ -1,0 +1,269 @@
+@import "colors";
+
+
+/*index css*/
+
+
+/*naslov*/
+
+
+.naslov{
+   text-align: center;
+   font-size: 3rem;
+   padding: 0.1rem 0 0 0;
+   height: 5rem;
+    background-color: $pozadina-naslov;
+    color: $naslov;
+}
+
+
+
+
+/*navigacija*/
+
+  /*  .navigation{
+         background-color: $nav-color; 
+    }*/
+
+    .navbar-nav{
+        color: $black;
+      
+    
+       
+    }
+    
+    .ac{
+       
+       border-bottom:1px dashed $aqua;
+    
+    }
+
+    
+   .navbutton1{
+    background-color: azure;
+    border:1px solid lightgrey;
+    color:lightslategrey; 
+   }
+    
+   .navbutton2{
+    background-color: lightslategrey;
+     color:white;
+   }
+
+  a.poc{text-decoration: none;
+     color: lightslategrey;
+    }
+
+    a.poc:hover{
+        background-color: #ddd;
+        color:darkslategrey;
+    }
+    
+    a.poc.active{
+        background-color: #ddd;
+        color:$black;
+      } 
+
+    li.link a:hover{
+        background-color: #ddd;
+    }
+    
+  li.link a.active{
+    background-color: #ddd;
+    color:$black;
+  } 
+    
+
+
+
+/*slajder*/
+.carousel-item{
+    width:100%;
+    height:33rem;
+    /*height:auto;
+    margin:0 auto;*/
+}
+
+    .slajder-slike{
+
+       width:100%;
+       height: 33rem;
+     /*  height: auto;
+        margin:0 auto;*/
+    }
+
+
+    @media (max-width: 960px) {
+        .carousel-item{
+             
+             height:auto;
+            }   
+
+
+            .slajder-slike{
+                height:auto;
+            }
+        }
+    
+
+
+   /*okvir1*/
+.okvir1{
+  
+    height:auto;       /* 20rem*/
+    text-align: justify;
+    border:0;
+    transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out;
+}
+
+
+.okvir1:hover{
+   background-color:$aqua;
+   border: 0.1rem solid $black;
+
+   transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out;
+}
+
+
+.tekst{
+
+    width:80%;
+    margin-left: 10%;
+    
+}
+
+.n2{
+    text-align: center;
+    padding: 1rem;
+}
+
+/*@media (max-width: 740px) {
+    .okvir1{
+         overflow-y: scroll;
+         height:27rem;
+        } 
+    }
+
+*/
+
+#poruka{
+    color: $naslov;
+    font-size: 2rem;
+    text-align:center;
+    transition: font-size 0.5s ease-in-out;
+
+}
+
+
+#ok1:hover > #poruka{
+				
+    
+    font-size: 2.5rem;
+    
+    transition: font-size 0.5s ease-in-out;
+
+}
+
+
+
+
+
+
+ /*okvir2*/
+ .okvir2{
+   
+    height:auto;/*20rem*/
+   background-image: url(../slike/patern.gif);
+ }
+.n3{
+    text-align: center;
+}
+
+
+.logo{
+    width:5rem;
+    height:7rem;
+    margin-left: 40%;
+    padding:0 0 0 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+/*footer*/
+.footer{
+
+    padding:0.5rem;
+    background-color: $footer;
+    color:$naslov;
+    text-align: center;
+    height:3rem;
+        
+}
+
+
+
+
+
+
+
+/*sobe.html css*/
+
+
+.podnaslov{
+
+    text-align: center;
+    font-size: 1.5rem;
+    color: $naslov;
+
+    height: 40%;
+    background-color: $silver;
+}
+
+
+.dugme{
+    width: 100%;
+    background-color: $active;
+
+}
+
+
+
+
+/*kontakt.html*/
+
+.mapa{
+    margin-top:5%;
+}
+.map{
+
+    width:80%;
+    height:30rem;
+    margin-left:10%;
+}
+
+.lo{
+    text-align: justify;
+    width:10rem;
+
+}
+@media (max-width: 580px) {
+    .map{
+         
+         height:20rem;
+        }   
+    }
+
+    @media (max-width: 300px) {
+        .lo{
+             
+             margin-left: 18%;
+             font-size: 10px;
+            }   
+        }

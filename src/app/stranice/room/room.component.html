@@ -1,0 +1,42 @@
+
+<div class="container-fluid naslov">
+        Hotel Euforia
+</div>
+
+
+<app-navbar2></app-navbar2>
+
+
+
+
+    <div class="container-fluid podnaslov">
+
+      <p> Soba</p>
+
+     </div>
+
+
+
+
+
+
+<div class="container-fluid col-md-8 offset-md-2 mt-3">
+    <div *ngIf="data"> 
+<ul class="list-group">
+  <li class="list-group-item active">Soba</li>
+  <li class="list-group-item" *ngIf="isAdmin">ID: {{data.id}}</li>
+  <li class="list-group-item">Broj: {{data.broj}}</li>
+  <li class="list-group-item">Naziv: {{data.naziv}}</li>
+  <li class="list-group-item" *ngIf="data.tv == '1'">TV: Ima</li>
+  <li class="list-group-item" *ngIf="data.tv != '1'">TV: Nema</li>
+  <li class="list-group-item">Kvadrati: {{data.kvadrati}} m<sup>2</sup></li>
+  <li class="list-group-item">Kreveti: {{data.kreveti}}</li>
+  <li class="list-group-item">Tip: {{data.tip}}</li>
+</ul>
+    </div>
+</div>
+
+
+<div class="container-fluid footer mt-3">
+    <p>&copy; Copyright 2018&reg;</p>
+   </div>

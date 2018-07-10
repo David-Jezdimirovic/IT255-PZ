@@ -1,0 +1,49 @@
+<div class="container-fluid naslov">
+     Hotel Euforia
+  </div>
+  
+  <app-navbar></app-navbar>
+  
+  
+   <div class="container-fluid podnaslov">
+  
+    <p> Tipovi soba </p>
+  
+   </div>
+
+
+
+   <div class="container-fluid col-md-8 offset-md-2 mt-3">
+     
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tip sobe</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+           
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tip of room_types" >
+            <td scope="row">{{tip.id}}</td>
+            <th scope="row">{{tip.tip}}</th>
+            <td><button class="btn btn-danger" (click)="removeRoomType($event,tip.id)">Delete</button> 
+            <td><button class="btn btn-warning" (click)="updateRoomType(tip.id)">Update</button> 
+            </td>
+           
+          </tr>
+        </tbody>
+      </table>
+      
+      </div>
+      
+
+     
+
+
+      <div class="container-fluid footer mt-3">
+          <p>&copy; Copyright 2018&reg;</p>
+          </div>
+          

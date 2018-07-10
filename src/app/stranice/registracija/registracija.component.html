@@ -1,0 +1,53 @@
+<div class="container-fluid naslov">
+    Hotel Euforia 
+</div>
+
+<app-navbar></app-navbar>
+
+
+
+ <div class="container-fluid podnaslov">
+
+  <p> Registracija </p>
+
+ </div>
+
+
+
+ <div class="container-fluid col-md-8 offset-md-2 mt-3">
+
+ <form role="form" [formGroup]="registracijaForm">
+
+    <div class="alert alert-danger" style="display: none;"></div>
+
+  <div class="form-group">
+     <label for="firstName">Ime:</label>
+     <input type="text" class="form-control" formControlName='firstName'>
+   </div>
+    <div class="form-group">
+     <label for="lastName">Prezime:</label>
+     <input type="text" class="form-control"  formControlName='lastName'>
+   </div>
+   <div class="form-group">
+     <label for="username">Username:</label>
+     <input type="text" class="form-control"  formControlName='username'>
+   </div>
+   <div class="form-group">
+     <label for="password">Šifra:</label>
+     <input type="password" class="form-control" formControlName='password'>
+   </div>
+   <div class="form-group">
+    <label for="admin">Admin:</label>
+    <select class="form-control" ng-selected="Da" formControlName='admin'>
+     <option value="1" >Da</option>
+     <option value="0" >Ne</option>
+    </select>
+  </div>
+   <button (click)="registracija()" class="btn btn-default">Registracija</button>
+ </form>
+
+ </div>
+
+ <div class="container-fluid mt-3 footer ">
+  <p>&copy; Copyright 2018&reg;</p>
+ </div>

@@ -1,0 +1,63 @@
+<div class="container-fluid naslov">
+    Hotel Euforia 
+</div>
+
+<app-navbar></app-navbar>
+
+ <div class="container-fluid podnaslov">
+
+  <p> Korisnici </p>
+
+ </div>
+
+ <div class="container-fluid col-md-8 offset-md-2 mt-3">
+    <label>Unesite ime</label>
+    <input type="text" class="form-control" placeholder="ime" name="firstname"  [(ngModel)]="firstname">
+
+    <label>Unesite prezime</label>
+    <input type="text" class="form-control" placeholder="prezime" name="lastname"  [(ngModel)]="lastname">
+  </div>
+
+<div class="container-fluid col-md-10 offset-md-1 mt-3">
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Ime</th>
+      <th scope="col">Prezime</th>
+      <th scope="col">Username</th>
+      <th scope="col">Admin</th>
+      <th scope="col">Delete</th>
+      <th scope="col">View</th>  
+      <th scope="col">Update</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users | searchuserpipe: firstname : lastname" >
+      <td scope="row">{{ user.id}}</td>
+      <td scope="row">{{ user.firstname }}</td>
+      <td scope="row">{{ user.lastname }}</td>
+      <td scope="row">{{ user.username }} </td>
+      <td scope="row">
+        <span *ngIf="user.admin=='1'">
+          Da
+        </span>
+        <span *ngIf="user.admin=='0'">
+          Ne
+        </span>
+      </td>
+      
+      <td>
+          <button class="btn btn-danger" (click)="removeUser($event, user.id)">Delete</button> 
+      </td> 
+      <td>
+          <button class="btn btn-info" (click)="viewUser(user.id)">View</button>  
+      </td> 
+      <td>
+          <button class="btn btn-warning" (click)="updateUser(user.id)">Update</button>  
+      </td> 
+    </tr>
+  </tbody>
+</table>
+
+</div>

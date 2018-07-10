@@ -1,0 +1,137 @@
+<div class="container-fluid naslov">
+    Hotel Euforia
+</div>
+
+<app-navbar></app-navbar>
+
+
+    <div class="container-fluid podnaslov" *ngIf="isAdmin">
+
+      <p> Lista rezervacija</p>
+
+     </div>
+
+     <div class="container-fluid col-md-8 offset-md-2 mt-3" *ngIf="isAdmin">
+        <label>Unesite ime</label>
+        <input type="text" class="form-control" placeholder="ime" name="firstname"  [(ngModel)]="firstname">
+    
+        <label>Unesite prezime</label>
+        <input type="text" class="form-control" placeholder="prezime" name="lastname"  [(ngModel)]="lastname">
+      </div>
+
+      <div class="container-fluid col-md-8 offset-md-2 mt-3" *ngIf="isAdmin">
+          <label>Unesite broj sobe</label>
+          <input type="number" class="form-control" placeholder="broj" name="broj"  [(ngModel)]="broj">
+      
+          <label>Unesite naziv sobe</label>
+          <input type="text" class="form-control" placeholder="naziv" name="naziv"  [(ngModel)]="naziv">
+        </div>
+
+     <div class="container-fluid col-md-10 offset-md-1 mt-3" *ngIf="isAdmin">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" >ID</th>
+            <th scope="col" >ID sobe</th>
+            <th scope="col">Broj sobe</th>
+            <th scope="col">Naziv</th>
+            <th scope="col">ID korisnika</th>
+            <th scope="col">Ime</th>
+            <th scope="col">Prezime</th>
+            <th scope="col">Na ime</th>
+            <th scope="col">Datum od</th>
+            <th scope="col">Datum do</th>
+            <th scope="col" >Delete</th> 
+            <th scope="col" >View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rezervacija of rezervacije | searchuserpipe: firstname : lastname | searchroompipe: broj : naziv" >
+            <td scope="row" >{{ rezervacija.id}}</td>
+            <th scope="row">{{ rezervacija.room_id}}</th>
+            <td>{{ rezervacija.broj}}</td>
+            <td>{{ rezervacija.naziv}}</td>
+            <td>{{ rezervacija.user_id }}</td>
+            <td>{{ rezervacija.firstname }} </td>
+            <td>{{ rezervacija.lastname }}</td>
+            <td>{{ rezervacija.ime }}</td>
+            <td>{{ rezervacija.date1 }}</td>
+            <td>{{ rezervacija.date2 }}</td>
+            <td>
+                <button class="btn btn-danger" (click)="deleteReservation($event, rezervacija.id)">Delete</button> 
+            </td> 
+            <td>
+                <button class="btn btn-info" (click)="viewReservation(rezervacija.id)">View</button>  
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      </div>
+
+
+
+
+      <div class="container-fluid podnaslov">
+
+          <p> Moje rezervacije</p>
+    
+         </div>
+
+         <div class="container-fluid col-md-8 offset-md-2 mt-3" >
+            <label>Unesite broj sobe</label>
+            <input type="number" class="form-control" placeholder="broj" name="broj"  [(ngModel)]="broj">
+        
+            <label>Unesite naziv sobe</label>
+            <input type="text" class="form-control" placeholder="naziv" name="naziv"  [(ngModel)]="naziv">
+          </div>
+
+<p style="color:red;font-size:25px;text-align:center;">{{ pr }}</p>
+<!-- <div  *ngIf="mojerezervacije?.length == 0" style="color:red;font-size:25px;text-align:center;">Trenutno nemate rezervacija</div> -->
+
+
+     <div class="container-fluid col-md-10 offset-md-1 mt-3" *ngIf="mojerezervacije!='' ">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col" *ngIf="isAdmin">ID</th>
+              <th scope="col" *ngIf="isAdmin">ID sobe</th>
+              <th scope="col">Broj sobe</th>
+              <th scope="col">Naziv</th>
+              <th scope="col" *ngIf="isAdmin">ID korisnika</th>
+              <th scope="col">Ime</th>
+              <th scope="col">Prezime</th>
+              <th scope="col">Na ime</th>
+              <th scope="col">Datum od</th>
+              <th scope="col">Datum do</th>
+              <th scope="col" >Delete</th> 
+              <th scope="col" >View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rezervacija of mojerezervacije | searchroompipe: broj : naziv" >
+              <td scope="row" *ngIf="isAdmin">{{ rezervacija.id}}</td>
+              <th scope="row" *ngIf="isAdmin">{{ rezervacija.room_id}}</th>
+              <td>{{ rezervacija.broj}}</td>
+              <td>{{ rezervacija.naziv}}</td>
+              <td *ngIf="isAdmin">{{ rezervacija.user_id }}</td>
+              <td>{{ rezervacija.firstname }} </td>
+              <td>{{ rezervacija.lastname }}</td>
+              <td>{{ rezervacija.ime }}</td>
+              <td>{{ rezervacija.date1 }}</td>
+              <td>{{ rezervacija.date2 }}</td>
+              <td >
+                  <button class="btn btn-danger" (click)="deleteReservation($event, rezervacija.id)">Delete</button> 
+              </td> 
+              <td >
+                  <button class="btn btn-warning" (click)="viewReservation(rezervacija.id)">View</button>  
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
+        </div>
+
+        <div class="container-fluid footer " style="margin-top:15%;">
+            <p>&copy; Copyright 2018&reg;</p>
+            </div>

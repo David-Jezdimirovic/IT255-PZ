@@ -1,0 +1,40 @@
+<div class="container-fluid naslov">
+        Hotel Euforia
+  </div>
+  
+  
+  <app-navbar2></app-navbar2>
+  
+  
+  
+  
+      <div class="container-fluid podnaslov">
+  
+        <p> Korisnik </p>
+  
+       </div>
+  
+  
+  
+  
+  
+  
+  <div class="container-fluid col-md-8 offset-md-2 mt-3">
+      <div *ngIf="data"> 
+  <ul class="list-group">
+    <li class="list-group-item active">Korisnik</li>
+    <li class="list-group-item">ID: {{data.id}}</li>
+    <li class="list-group-item">Ime: {{data.firstname}}</li>
+    <li class="list-group-item">Prezime: {{data.lastname}}</li>
+    <li class="list-group-item">Username: {{data.username}}</li>
+    <li class="list-group-item" *ngIf="data.admin == '1'">Admin: Da</li>
+    <li class="list-group-item" *ngIf="data.admin == '0'">Admin: Ne</li>
+
+  </ul>
+      </div>
+  </div>
+  
+  
+  <div class="container-fluid footer mt-3">
+      <p>&copy; Copyright 2018&reg;</p>
+     </div>

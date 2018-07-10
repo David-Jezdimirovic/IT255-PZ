@@ -1,0 +1,56 @@
+<div class="container-fluid naslov">
+    Hotel Euforia
+  </div>
+  
+  
+  <app-navbar2></app-navbar2>
+  
+
+
+    <div class="container-fluid podnaslov">
+
+     <p> Izmeni korisnika </p>
+
+    </div>
+
+    <div class="container-fluid col-md-8 offset-md-2 mt-3">
+
+      <form role="form" [formGroup]="updateuserForm">
+
+          <div class="alert alert-danger" style="display: none;"></div>
+      
+          <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" class="form-control" formControlName='id' >
+       </div>
+       <div class="form-group">
+          <label for="firstName">Ime:</label>
+          <input type="text" class="form-control" formControlName='firstName'>
+        </div>
+         <div class="form-group">
+          <label for="lastName">Prezime:</label>
+          <input type="text" class="form-control"  formControlName='lastName'>
+        </div>
+       
+        <div class="form-group">
+          <label for="username">username:</label>
+          <input type="text" class="form-control" formControlName='username'>
+        </div>
+        <div class="form-group">
+            <label for="admin">Admin:</label>
+            <select class="form-control" ng-selected="Da" formControlName='admin'>
+             <option value="1" >Da</option>
+             <option value="0" >Ne</option>
+            </select>
+        </div>
+       
+        <button (click)="updateUser()" class="btn btn-default">Update</button>
+      </form>
+     
+     </div>
+     
+
+     <div class="container-fluid footer mt-3">
+        <p>&copy; Copyright 2018&reg;</p>
+        </div>
+     

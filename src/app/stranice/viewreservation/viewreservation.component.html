@@ -1,0 +1,43 @@
+<div class="container-fluid naslov">
+        Hotel Euforia
+  </div>
+  
+  
+  <app-navbar2></app-navbar2>
+  
+  
+  
+  
+      <div class="container-fluid podnaslov">
+  
+        <p> Rezervacija </p>
+  
+       </div>
+  
+  
+  
+  
+  
+  
+  <div class="container-fluid col-md-8 offset-md-2 mt-3">
+      <div *ngIf="data"> 
+  <ul class="list-group">
+    <li class="list-group-item active">Rezervacija</li>
+    <li class="list-group-item" *ngIf="isAdmin">ID: {{data.id}}</li>
+    <li class="list-group-item" *ngIf="isAdmin">ID sobe: {{data.room_id}}</li>
+    <li class="list-group-item">Broj: {{data.broj}}</li>
+    <li class="list-group-item">Naziv: {{data.naziv}}</li>
+    <li class="list-group-item" *ngIf="isAdmin">ID osobe: {{data.user_id}}</li>
+    <li class="list-group-item" >Ime: {{data.firstname}}</li>
+    <li class="list-group-item">Prezime: {{data.lastname}}</li>
+    <li class="list-group-item">Rezervacija na ime: {{data.ime}}</li>
+    <li class="list-group-item">Od: {{data.date1}}</li>
+    <li class="list-group-item">Do: {{data.date2}}</li>
+  </ul>
+      </div>
+  </div>
+  
+  
+  <div class="container-fluid footer mt-3">
+      <p>&copy; Copyright 2018&reg;</p>
+     </div>

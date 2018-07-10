@@ -1,0 +1,179 @@
+<div class="container-fluid naslov">
+     Hotel Euforia
+  </div>
+
+  <app-navbar></app-navbar>
+
+
+      <div class="container-fluid podnaslov">
+
+        <p> Pretraga soba</p>
+ 
+       </div>
+
+  <div class="container-fluid col-md-8 offset-md-2 mt-3">
+    <label>Unesite broj kvadrata sobe</label>
+    <input type="number" class="form-control"  placeholder="kvadrati" name="kvadrati"  [(ngModel)]="kvadrati">
+
+    <label>Unesite broj kreveta sobe</label>
+    <input type="number" class="form-control" placeholder="kreveti" name="kreveti"  [(ngModel)]="kreveti">
+  </div>
+<!--
+<ul>
+  <li *ngFor="let soba of sobe | searchpipe: kvadrati : kreveti">Broj sobe: {{ soba.broj}} , Kvadratura: {{ soba.kvadrati }} , Kreveti: {{ soba.kreveti }}</li>
+</ul>
+-->
+
+<div class="container-fluid col-md-10 offset-md-1 mt-3">
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" *ngIf="isAdmin">ID</th>
+      <th scope="col">Broj sobe</th>
+      <th scope="col">Naziv</th>
+      <th scope="col">TV</th>
+      <th scope="col">Kvadratura</th>
+      <th scope="col">Kreveti</th>
+      <th scope="col">Tip sobe</th>
+      <th scope="col" *ngIf="isAdmin">Delete</th> 
+      <th scope="col">View</th> 
+      <th scope="col" *ngIf="isAdmin">Update</th>
+      <th scope="col">Reservisi</th>  
+    </tr>
+  </thead>
+  <tbody>                                                   <!--  | sortpipe -->
+    <tr *ngFor="let soba of sobe | searchpipe: kvadrati : kreveti  " >
+      <td scope="row" *ngIf="isAdmin">{{ soba.id}}</td>
+      <th scope="row">{{ soba.broj}}</th>
+      <td>{{ soba.naziv}}</td>
+      <td>
+        <span *ngIf="soba.tv == '1'">
+            Ima
+        </span>
+        <span *ngIf="soba.tv != '1'">
+            Nema
+        </span>
+      </td>
+      <td>{{ soba.kvadrati }} m<sup>2</sup> </td>
+      <td>{{ soba.kreveti }}</td>
+      <td>{{ soba.tip }}</td>
+      <td *ngIf="isAdmin">
+          <button class="btn btn-danger" (click)="removeRoom($event, soba.id)">Delete</button> 
+      </td> 
+      <td>
+          <button class="btn btn-info" (click)="viewRoom(soba.id)">View</button>  
+      </td> 
+      <td *ngIf="isAdmin">
+          <button class="btn btn-warning" (click)="updateRoom(soba.id)">Update</button>  
+      </td>
+      <td>
+          <button class="btn btn-primary" (click)="reservation(soba.id)">Rezervisi</button>  
+      </td>  
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+
+
+<div class="container-fluid podnaslov mt-3" *ngIf="isAdmin">
+
+    <p> Pretrazi sobu na osnovu ID-a sobe </p>
+
+   </div>
+
+
+<div class="container-fluid col-md-8 offset-md-2 mt-3" *ngIf="isAdmin">
+
+ <form role="form" [formGroup]="searchForm">
+      <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" class="form-control" formControlName='id'>
+      </div>
+      <button (click)="searchRoom()" class="btn btn-default">Pretraga</button>
+  </form>
+</div>
+
+
+
+
+<div class="container-fluid col-md-10 offset-md-1 mt-3"  *ngIf="check && isAdmin" >
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Broj sobe</th>
+          <th scope="col">Naziv</th>
+          <th scope="col">TV</th>
+          <th scope="col">Kvadratura</th>
+          <th scope="col">Kreveti</th>
+          <th scope="col">Tip sobe</th>
+          <th scope="col">Delete</th> 
+          <th scope="col">View</th> 
+          <th scope="col">Update</th>
+          <th scope="col">Rezervisi</th>  
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">{{ data.id}}</td>
+          <th scope="row">{{ data.broj}}</th>
+          <td>{{ data.naziv}}</td>
+          <td>
+            <span *ngIf="data.tv == '1'">
+                Ima
+            </span>
+            <span *ngIf="data.tv != '1'">
+                Nema
+            </span>
+          </td>
+          <td>{{ data.kvadrati }} m<sup>2</sup> </td>
+          <td>{{ data.kreveti }}</td>
+          <td>{{ data.tip }}</td>
+          <td>
+              <button class="btn btn-danger" (click)="removeRoom($event, data.id)">Delete</button> 
+          </td> 
+          <td>
+              <button class="btn btn-info" (click)="viewRoom(data.id)">View</button>  
+          </td> 
+          <td>
+              <button class="btn btn-warning" (click)="updateRoom(data.id)">Update</button>  
+          </td>
+          <td>
+              <button class="btn btn-primary" (click)="reservation(data.id)">Rezervisi</button>  
+          </td> 
+        </tr>
+      </tbody>
+    </table>
+    
+    </div>
+    
+    <div class="container-fluid col-md-8 offset-md-2 mt-3 " *ngIf="!check" style="color:red;font-size:20px;">
+       {{message}}
+    </div>
+
+
+
+    <div class="container-fluid podnaslov mt-3" *ngIf="isAdmin">
+
+        <p> Izbrisi sobu na osnovu ID-a sobe </p>
+    
+       </div>
+    
+    
+    <div class="container-fluid col-md-8 offset-md-2 mt-3" *ngIf="isAdmin">
+    
+     <form role="form" [formGroup]="deleteForm">
+          <div class="form-group">
+                <label for="id">ID:</label>
+                <input type="number" class="form-control" formControlName='id'>
+          </div>
+          <button (click)="deleteRoom()" class="btn btn-danger">Izbrisi</button>
+      </form>
+    </div>
+
+
+<div class="container-fluid footer mt-3" >
+    <p>&copy; Copyright 2018&reg;</p>
+</div>
