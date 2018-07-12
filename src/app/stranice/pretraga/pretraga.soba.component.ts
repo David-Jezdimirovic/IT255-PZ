@@ -18,6 +18,7 @@ export class PretragaSobaComponent{
   data: any[];
   message: String;
   check:boolean;
+  er: any[];
   private sobe:Array<any> = [];
   private kvadrati = 0;
   private kreveti = 0;
@@ -93,9 +94,20 @@ public proveriAdmina(){
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('token', localStorage.getItem('token'));
      this._http.get('http://localhost:8080/IT255-PZ/deleteroom.php?id='+item, {headers:headers})  .subscribe( data => {
-        event.srcElement.parentElement.parentElement.remove();
+     // this.er = JSON.parse(data["_body"]).error; 
+
+  // if(data["_body"].indexOf("error") === -1){
+    event.srcElement.parentElement.parentElement.remove();
+  //    }else{
+   //     alert(this.er);
+   //     alert(data["_body"]);
+   // }
         //data => this.postResponse = data;
-      }); 
+      }, err => {
+        let obj = JSON.parse(err._body);
+        alert(obj.error);
+      }
+    ); 
     }
 
 

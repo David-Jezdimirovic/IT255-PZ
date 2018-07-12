@@ -22,7 +22,7 @@ export class UpdateroomComponent implements OnInit {
    public data: any[];
 
   public updateroomForm = new FormGroup({
-    id: new FormControl(),
+   // id: new FormControl(),
     broj: new FormControl(),
     naziv: new FormControl(),
     tv: new FormControl(),
@@ -55,7 +55,7 @@ export class UpdateroomComponent implements OnInit {
            this.data =JSON.parse(data['_body']).room;
           
           
-           this.updateroomForm.controls['id'].setValue(this.data['id']);
+        //   this.updateroomForm.controls['id'].setValue(this.data['id']);
            this.updateroomForm.controls['broj'].setValue(this.data['broj']);
            this.updateroomForm.controls['naziv'].setValue(this.data['naziv']);
            this.updateroomForm.controls['tv'].setValue(this.data['tv']);
@@ -94,8 +94,8 @@ export class UpdateroomComponent implements OnInit {
   
 
 
-  public updateRoom() {
-    var data = "broj="+this.updateroomForm.value.broj+"&naziv="+this.updateroomForm.value.naziv+"&tv="+this.updateroomForm.value.tv+"&kvadrati="+this.updateroomForm.value.kvadrati+"&kreveti="+this.updateroomForm.value.kreveti+"&room_type_id="+this.updateroomForm.value.room_type+"&id="+this.updateroomForm.value.id;
+  public updateRoom() {                                                                                                                                                                                                                                                                       //this.updateroomForm.value.id
+    var data = "broj="+this.updateroomForm.value.broj+"&naziv="+this.updateroomForm.value.naziv+"&tv="+this.updateroomForm.value.tv+"&kvadrati="+this.updateroomForm.value.kvadrati+"&kreveti="+this.updateroomForm.value.kreveti+"&room_type_id="+this.updateroomForm.value.room_type+"&id="+this.data['id'];
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append("token",localStorage.getItem("token"));

@@ -36,10 +36,6 @@ function login($username, $password){
         $result2->bind_param("ss",$id,$username);
         $result2->execute();
 
-        $result3 = $conn->prepare("UPDATE reservations SET token=? WHERE username=?");
-        $result3->bind_param("ss",$id,$username);
-        $result3->execute();
-
         $rarray['token'] = $id;
 
         $admin = checkIsAdmin($id);
@@ -269,7 +265,7 @@ function proveriAdmina($token) {
 function addRoom($broj, $naziv, $tv, $kvadrati, $kreveti, $room_type_id){
     global $conn;
     $rarray = array();
-    if(checkIfLoggedIn() && check_authorization($token, $admin_local, 1)){
+    if(checkIfLoggedIn() ){
         $stmt = $conn->prepare("INSERT INTO rooms (broj, naziv, tv, kvadrati, kreveti, room_type_id) VALUES (?,
         ?, ?, ?, ?, ?)");
         $stmt->bind_param("dsdddd",$broj, $naziv, $tv, $kvadrati, $kreveti, $room_type_id);
@@ -364,10 +360,20 @@ function deleteRoom($id){
     global $conn;
     $rarray = array();
     if(checkIfLoggedIn()){
-        $result = $conn->prepare("DELETE FROM rooms WHERE id=?");
-        $result->bind_param("i",$id);
-        $result->execute();
+
+        $result = $conn->query("SELECT room_id FROM reservations WHERE room_id=".$id);
+        $num_rows = $result->num_rows;
+        
+        if($num_rows > 0){
+            header('HTTP/1.1 400 Bad request');
+             $rarray['error'] = "Soba je rezervisana";
+        }else{        
+        $result2 = $conn->prepare("DELETE FROM rooms WHERE id=?");
+        $result2->bind_param("i",$id);
+        $result2->execute();
         $rarray['success'] = "Deleted successfully";
+        }
+
     } else{
         $rarray['error'] = "Please log in";
         header('HTTP/1.1 401 Unauthorized');
@@ -522,10 +528,19 @@ function deleteRoomType($id){
     global $conn;
     $rarray = array();
     if(checkIfLoggedIn()){
-        $result = $conn->prepare("DELETE FROM room_type WHERE id=?");
-        $result->bind_param("i",$id);
-        $result->execute();
+
+        $result = $conn->query("SELECT room_type_id FROM rooms WHERE room_type_id=".$id);
+        $num_rows = $result->num_rows;
+        
+        if($num_rows > 0){
+       //     header('HTTP/1.1 400 Bad request');
+             $rarray['error'] = "Postoji soba sa ovim tipom";
+        }else{
+        $result2 = $conn->prepare("DELETE FROM room_type WHERE id=?");
+        $result2->bind_param("i",$id);
+        $result2->execute();
         $rarray['success'] = "Deleted successfully";
+        }
     } else{
         $rarray['error'] = "Please log in";
         header('HTTP/1.1 401 Unauthorized');
@@ -651,10 +666,18 @@ function deleteUser($id){
     global $conn;
     $rarray = array();
     if(checkIfLoggedIn()){
-        $result = $conn->prepare("DELETE FROM users WHERE id=?");
-        $result->bind_param("i",$id);
-        $result->execute();
+        $result = $conn->query("SELECT user_id FROM reservations WHERE user_id=".$id);
+        $num_rows = $result->num_rows;
+        
+        if($num_rows > 0){
+       //     header('HTTP/1.1 400 Bad request');
+             $rarray['error'] = "Korisnik ima rezervaciju";
+        }else{
+        $result2 = $conn->prepare("DELETE FROM users WHERE id=?");
+        $result2->bind_param("i",$id);
+        $result2->execute();
         $rarray['success'] = "Deleted successfully";
+        }
     } else{
         $rarray['error'] = "Please log in";
         header('HTTP/1.1 401 Unauthorized');
@@ -676,29 +699,33 @@ function reservation($id, $ime, $od, $do, $token){
             $errors .= "Soba je zauzeta u tom periodu\r\n";
             }
         if($od > $do){
-            $errors .= "Geska u unosu datuma\r\n";
+            $errors .= "Datum zavrsetka ne moze biti pre datuma pocetka rezervacije\r\n";
         }
-     //   $result = $conn->query("SELECT username FROM users WHERE token=".$token);
-    //    $user = array();
-    //    $num_rows = $result->num_rows;
-    //        if($num_rows > 0){
+        if($od < date("Y-m-d") || $do < date("Y-m-d")){
+            $errors .= "Datumi ne mogu biti raniiji od danasnjeg datuma\r\n";
+        }
+
+   //     $result = $conn->query("SELECT id,username FROM users WHERE token=".$token);
+   //     $user = array();
+   //     $num_rows = $result->num_rows;
+   //         if($num_rows > 0){
    //             $result2 = $conn->query("SELECT username FROM users WHERE token=".$token);
    //         while($row = $result2->fetch_assoc()) {
-    //            $one_user = array();
+  //              $one_user = array();
+  //              $one_user['id'] = $row['id'];
+  //              $one_user['username'] = $row['username'];
                
-    //            $one_user['username'] = $row['username'];
-               
-    //            $user = $one_user;
-    //                 }
-    //             }
+  //              $user = $one_user;
+  //                   }
+  //               }
                 // $rarray['username']=$user;
              //    return json_encode($rarray);
 
         if($errors == ""){  
             $username = getUsername($token);
 
-         $result3 = $conn->prepare("INSERT INTO reservations ( room_id, user_id, ime, date1, date2, username, token) VALUES (?,?,?,?,?,?,?)");
-         $result3->bind_param("iisssss", $id, $username['id'], $ime, $od, $do, $username['username'], $token);
+         $result3 = $conn->prepare("INSERT INTO reservations ( room_id, user_id, ime, date1, date2) VALUES (?,?,?,?,?)");
+         $result3->bind_param("iisss", $id, $username['id'], $ime, $od, $do);
          $result3->execute();                                                   //$username
              }else{
                
@@ -797,23 +824,28 @@ function getReservations(){
 
 
 
-/////////////////////////////////////
+
 
 function getmyReservations($token){
     global $conn;
     $rarray = array();
     if(checkIfLoggedIn()){ 
-       // $token = str_replace('"', "", $token);
-                            
-        $result = $conn->query("SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime,date1,date2 from users,rooms,reservations WHERE users.id=user_id AND rooms.id =room_id AND reservations.token=".$token);
+        
+     //  $token = str_replace('"', "", $token);
+      $username = getUsername($token); 
+
+        $result = $conn->query( "SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime,date1,date2 from reservations JOIN rooms ON reservations.room_id = rooms.id JOIN users ON reservations.user_id=users.id WHERE reservations.user_id=".$username['id'] );           
+       // $result = $conn->query("SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime,date1,date2 from reservations,users,rooms WHERE reservations.user_id=users.id AND reservations.room_id=rooms.id  AND reservations.user_id=".$username['id']);
+       
       
         $num_rows = $result->num_rows;
         
         $myreservations = array();
         if($num_rows > 0)
-        {                         
-            $result2 = $conn->query("SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime, DATE_FORMAT(date1, '%d. %m. %Y.') AS date1, DATE_FORMAT(date2, '%d. %m. %Y.') AS date2 from users,rooms,reservations WHERE users.id=user_id AND rooms.id =room_id AND reservations.token=".$token);
-           
+        {    
+            $result2 = $conn->query("SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime, DATE_FORMAT(date1, '%d. %m. %Y.') AS date1, DATE_FORMAT(date2, '%d. %m. %Y.') AS date2 from reservations JOIN rooms ON reservations.room_id = rooms.id JOIN users ON reservations.user_id=users.id WHERE reservations.user_id=".$username['id'] );                                
+           // $result2 = $conn->query("SELECT reservations.id, room_id, broj, naziv, user_id, firstname, lastname, reservations.ime, DATE_FORMAT(date1, '%d. %m. %Y.') AS date1, DATE_FORMAT(date2, '%d. %m. %Y.') AS date2 from reservations,users,rooms WHERE reservations.user_id=users.id AND reservations.room_id=rooms.id AND reservations.user_id=".$username['id']);
+
             while($row = $result2->fetch_assoc()) {
                 $one_myreservation = array();
                 $one_myreservation['id'] = $row['id'];

@@ -17,7 +17,7 @@ export class ReservationComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _http: Http, private _router: Router) { }
 
   public reservationForm = new FormGroup({
-    id: new FormControl(),
+    //id: new FormControl(),
     ime: new FormControl(),
     od: new FormControl(),
     do: new FormControl(),
@@ -39,7 +39,7 @@ export class ReservationComponent implements OnInit {
         this._http.get('http://localhost:8080/IT255-PZ/getroom.php?id='+id,{headers:headers}).subscribe(data => {
            this.data =JSON.parse(data['_body']).room;
 
-    this.reservationForm.controls['id'].setValue(this.data['id']);
+    //this.reservationForm.controls['id'].setValue(this.data['id']);
      },
       err => { this._router.navigate(['./']); 
       }
@@ -50,7 +50,8 @@ export class ReservationComponent implements OnInit {
   }
 
   public reservationRoom() {
-  let data = "id="+this.reservationForm.value.id+"&ime="+this.reservationForm.value.ime+"&od="+this.reservationForm.value.od+"&do="+this.reservationForm.value.do+"&token="+localStorage.getItem('token');
+                    //this.reservationForm.value.id
+  let data = "id="+this.data['id']+"&ime="+this.reservationForm.value.ime+"&od="+this.reservationForm.value.od+"&do="+this.reservationForm.value.do+"&token="+localStorage.getItem('token');
 
   const headers = new Headers();
   headers.set('Content-Type', 'application/x-www-form-urlencoded');

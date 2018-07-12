@@ -5,7 +5,7 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
 include("functions.php");
 
   if(isset($_GET['token'])){
-      $token = intval($_GET['token']);
+      $token = ($_GET['token']);
       echo getmyReservations($token);
   }
 

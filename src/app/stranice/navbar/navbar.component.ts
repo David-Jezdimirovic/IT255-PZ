@@ -50,8 +50,9 @@ export class NavbarComponent implements OnInit {
     let data = "token="+localStorage.getItem('token');
     this._http.post('http://localhost:8080/IT255-PZ/proveriAdmina.php', data, {headers:headers}).subscribe( data => {
           this.provera = JSON.parse(data["_body"]).admin;
-      //    var r=this.n['admin'];
+      // var r=this.provera['admin'];
       //console.log(r);
+      //console.log(this.provera);
           if(this.provera['admin'] == 1){
        
            this.isAdmin = true;
@@ -76,6 +77,7 @@ export class NavbarComponent implements OnInit {
 
     this._http.get('http://localhost:8080/IT255-PZ/getName.php?token='+localStorage.getItem('token'), {headers:headers}).subscribe( data => {
           this.ime = JSON.parse(data["_body"]).username;
+           console.log(this.ime);
       //    console.log(this.ime['username'],this.ime['firstname']);
   }
   , err => {

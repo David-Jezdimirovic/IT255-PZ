@@ -19,7 +19,7 @@ export class UpdateroomtypeComponent implements OnInit {
     public data: any[];
 
     public updateroomtypeForm = new FormGroup({
-      id: new FormControl(),
+    //  id: new FormControl(),
       tip: new FormControl(),
       
     });
@@ -41,7 +41,7 @@ export class UpdateroomtypeComponent implements OnInit {
            this.data =JSON.parse(data['_body']).type;
           
           
-           this.updateroomtypeForm.controls['id'].setValue(this.data['id']);
+        //   this.updateroomtypeForm.controls['id'].setValue(this.data['id']);
            this.updateroomtypeForm.controls['tip'].setValue(this.data['tip']);
         
           },
@@ -55,8 +55,8 @@ export class UpdateroomtypeComponent implements OnInit {
 
   
 
-   public updateRoomType() {
-    var data = "tip="+this.updateroomtypeForm.value.tip+"&id="+this.updateroomtypeForm.value.id;
+   public updateRoomType() {                                  //this.updateroomtypeForm.value.id
+    var data = "tip="+this.updateroomtypeForm.value.tip+"&id="+this.data['id'];
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append("token",localStorage.getItem("token"));

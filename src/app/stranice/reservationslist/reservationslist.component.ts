@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import { Http, Response } from '@angular/http';
 import { Http, Headers } from '@angular/http';
-import { Router } from '@angular/router';
-import { isNull } from '@angular/compiler/src/output/output_ast';
+import {  Router, ActivatedRoute, Params } from '@angular/router';
+//import { isNull } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -13,15 +13,16 @@ import { isNull } from '@angular/compiler/src/output/output_ast';
 export class ReservationslistComponent implements OnInit {
 
   constructor(private _http: Http, private _router: Router) { }
-
+  
   public isAdmin:boolean;
   public provera:any;
   //private rezervacije:any[];
   private rezervacije:Array<any> = [];
   private mojerezervacije:Array<any> = [];
   pr:string;
-
+//ime:any[];
   ngOnInit() {
+    
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
@@ -36,11 +37,8 @@ export class ReservationslistComponent implements OnInit {
         }
       );
 
-     // var headers = new Headers();
-  //  headers.append('Content-Type', 'application/x-www-form-urlencoded');
-  //  headers.append('token', localStorage.getItem('token'));
-      this._http.get('http://localhost:8080/IT255-PZ/getmyReservations.php?token='+localStorage.getItem('token'), {headers: headers})
-      .subscribe(data => {
+  //    let data = "token="+localStorage.getItem('token');
+      this._http.get('http://localhost:8080/IT255-PZ/getmyReservations.php?token='+localStorage.getItem('token'), {headers: headers}).subscribe(data => {
           this.mojerezervacije = JSON.parse(data['_body']).myreservations;
         
           if(this.mojerezervacije.length == 0){
@@ -101,5 +99,6 @@ export class ReservationslistComponent implements OnInit {
       }); 
     } 
 
-
-}
+   
+     
+  }

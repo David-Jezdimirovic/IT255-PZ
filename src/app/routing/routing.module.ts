@@ -21,6 +21,7 @@ import { ViewreservationComponent } from '../stranice/viewreservation/viewreserv
 import { ChangepasswordComponent } from '../stranice/changepassword/changepassword.component';
 
 
+
 const routes: Routes = [
    //{ path: '', component: PocetnaComponent}, //index stranica
    { path: '', redirectTo: 'pocetna', pathMatch: 'full'}, // redirekcija na pocetnu stranicu
@@ -43,6 +44,7 @@ const routes: Routes = [
    { path: 'viewreservation/:id', component: ViewreservationComponent },
    { path: 'reservationslist', component: ReservationslistComponent },
    { path: 'changepassword', component: ChangepasswordComponent },
+  
 
 
 ];

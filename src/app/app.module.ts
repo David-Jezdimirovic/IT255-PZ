@@ -34,6 +34,8 @@ import { ChangepasswordComponent } from './stranice/changepassword/changepasswor
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +63,9 @@ import { ChangepasswordComponent } from './stranice/changepassword/changepasswor
     ReservationComponent,
     ReservationslistComponent,
     ViewreservationComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+   
+    
     
 
     

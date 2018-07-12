@@ -18,7 +18,7 @@ export class UpdateuserComponent implements OnInit {
 
   //{value:'13', disabled:true},Validators.required
   public updateuserForm = new FormGroup({
-    id: new FormControl(),
+ //   id: new FormControl(),
     firstName: new FormControl(),
     lastName: new FormControl(),
     username: new FormControl(),
@@ -37,7 +37,7 @@ export class UpdateuserComponent implements OnInit {
          this.data =JSON.parse(data['_body']).user;
         
         
-         this.updateuserForm.controls['id'].setValue(this.data['id']);
+      //   this.updateuserForm.controls['id'].setValue(this.data['id']);
          this.updateuserForm.controls['firstName'].setValue(this.data['firstname']);
          this.updateuserForm.controls['lastName'].setValue(this.data['lastname']);
          this.updateuserForm.controls['username'].setValue(this.data['username']);
@@ -55,8 +55,8 @@ export class UpdateuserComponent implements OnInit {
  }
 
 
- public updateUser() {
-  var data = "firstName="+this.updateuserForm.value.firstName+"&lastName="+this.updateuserForm.value.lastName+"&username="+this.updateuserForm.value.username+"&admin="+this.updateuserForm.value.admin + "&id="+this.updateuserForm.value.id;
+ public updateUser() {                                                                                                                                                                                         //this.updateuserForm.value.id                                             
+  var data = "firstName="+this.updateuserForm.value.firstName+"&lastName="+this.updateuserForm.value.lastName+"&username="+this.updateuserForm.value.username+"&admin="+this.updateuserForm.value.admin + "&id="+this.data['id'];
   var headers = new Headers();
   headers.append('Content-Type', 'application/x-www-form-urlencoded');
   headers.append("token",localStorage.getItem("token"));

@@ -13,6 +13,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class KorisniciComponent implements OnInit {
 
   private users:Array<any> = [];
+  er:any[];
   
   constructor(private _http: Http, private _router: Router) { }
 
@@ -38,8 +39,17 @@ export class KorisniciComponent implements OnInit {
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('token', localStorage.getItem('token'));
      this._http.get('http://localhost:8080/IT255-PZ/deleteuser.php?id='+item, {headers:headers})  .subscribe( data => {
-        event.srcElement.parentElement.parentElement.remove();
-        //data => this.postResponse = data;
+    
+        this.er = JSON.parse(data["_body"]).error; 
+
+        if(data["_body"].indexOf("error") === -1){
+          
+         event.srcElement.parentElement.parentElement.remove();
+           }else{
+             alert(this.er);
+         //    alert(data["_body"]);
+             
+         }
       }); 
     }
 
