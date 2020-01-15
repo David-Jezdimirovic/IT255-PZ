@@ -325,12 +325,12 @@ function getRoom($id){
     global $conn;
     $rarray = array();
     if(checkIfLoggedIn()){
-        $result = $conn->query("SELECT rooms.id, broj, naziv, tv, kvadrati, kreveti,  (SELECT tip FROM room_type WHERE id=rooms.room_type_id) as tip FROM rooms WHERE rooms.id=".$id);
+        $result = $conn->query("SELECT rooms.id, broj, naziv, tv, kvadrati, kreveti, room_type_id, (SELECT tip FROM room_type WHERE id=rooms.room_type_id) as tip FROM rooms WHERE rooms.id=".$id);
         $num_rows = $result->num_rows;
         $rooms = array();
         if($num_rows > 0)
         {
-            $result2 = $conn->query("SELECT rooms.id, broj, naziv, tv, kvadrati, kreveti,  (SELECT tip FROM room_type WHERE id=rooms.room_type_id) as tip FROM rooms WHERE rooms.id=".$id);
+            $result2 = $conn->query("SELECT rooms.id, broj, naziv, tv, kvadrati, kreveti, room_type_id (SELECT tip FROM room_type WHERE id=rooms.room_type_id) as tip FROM rooms WHERE rooms.id=".$id);
             while($row = $result2->fetch_assoc()) {
                 $one_room = array();
                 $one_room['id'] = $row['id'];
@@ -339,6 +339,7 @@ function getRoom($id){
                 $one_room['tv'] = $row['tv'];
                 $one_room['kvadrati'] = $row['kvadrati'];
                 $one_room['kreveti'] = $row['kreveti'];
+                $one_room['room_type_id'] = $row['room_type_id']; 
                 $one_room['tip'] = $row['tip']; 
                 $rooms = $one_room;
             }

@@ -32,8 +32,8 @@ export class PretragaSobaComponent{
   });
 
 public isAdmin:boolean;
-public admin:string;
-public token:string;
+//public admin:string;
+//public token:string;
 provera:any[];
 
   constructor(private _http: Http, private _router: Router) { }
@@ -94,18 +94,19 @@ public proveriAdmina(){
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
     headers.append('token', localStorage.getItem('token'));
      this._http.get('http://localhost:8080/IT255-PZ/deleteroom.php?id='+item, {headers:headers})  .subscribe( data => {
-     // this.er = JSON.parse(data["_body"]).error; 
+    //  this.er = JSON.parse(data["_body"]).error; 
 
   // if(data["_body"].indexOf("error") === -1){
     event.srcElement.parentElement.parentElement.remove();
   //    }else{
-   //     alert(this.er);
+       // alert(this.er);
    //     alert(data["_body"]);
    // }
         //data => this.postResponse = data;
       }, err => {
         let obj = JSON.parse(err._body);
         alert(obj.error);
+      //  alert(err._body);
       }
     ); 
     }

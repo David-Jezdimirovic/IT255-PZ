@@ -79,7 +79,7 @@ import { ChangepasswordComponent } from './stranice/changepassword/changepasswor
  
   ],
   providers: [],
-  exports: [SearchpipePipe],
+  exports: [SearchpipePipe, SearchroomPipe, SearchuserPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

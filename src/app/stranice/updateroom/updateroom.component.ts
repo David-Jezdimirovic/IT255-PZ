@@ -61,7 +61,7 @@ export class UpdateroomComponent implements OnInit {
            this.updateroomForm.controls['tv'].setValue(this.data['tv']);
            this.updateroomForm.controls['kvadrati'].setValue(this.data['kvadrati']);
            this.updateroomForm.controls['kreveti'].setValue(this.data['kreveti']);
-           //this.updateroomForm.controls['room_type'].setValue(this.data['tip']);
+           this.updateroomForm.controls['room_type'].setValue(this.data['room_type_id']);
           
           
           
